@@ -11,5 +11,9 @@ class TeamController extends Controller
     {
         // 
     }
+        public function show($id)
+    {
+        // later invullen
+    }
 
 }
