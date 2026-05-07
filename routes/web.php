@@ -8,6 +8,7 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ContactController;
 Use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 Route::view('/home', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -26,6 +27,7 @@ Route::post('/contact', [ContactController::class, 'send']);
 Route::get('/profile/{id}', [ProfileController::class, 'show']);
 Route::get('/profile', [ProfileController::class, 'edit'])->middleware('auth');
 Route::post('/profile', [ProfileController::class, 'update'])->middleware('auth');
+Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
 
 
 
