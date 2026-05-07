@@ -13,6 +13,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 Route::get('/teams', [TeamController::class, 'index']);
 Route::get('/teams/{id}', [TeamController::class, 'show']);
+Route::get('/players', [PlayerController::class, 'index']);
 
 
 require __DIR__.'/settings.php';
