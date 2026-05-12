@@ -9,7 +9,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ContactController;
 Use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
 //Route::view('/home', 'welcome')->name('home');
 
 
@@ -29,8 +29,14 @@ Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
 Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
 Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
+Route::get('/players/{id}', [PlayerController::class, 'show'])->name('players.show');
 
 
 
+
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('players', AdminPlayerController::class);
+});
 
 require __DIR__.'/settings.php';

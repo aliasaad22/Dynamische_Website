@@ -9,13 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('players', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+    public function up()
+{
+    Schema::create('players', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('photo')->nullable();
+        $table->integer('number');
+        $table->string('position');
+        $table->foreignId('team_id')->constrained()->onDelete('cascade');
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

@@ -10,11 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Real Madrid homepage stijl:
-        // - Uitgelichte spelers
-        // - Belangrijkste team (A-ploeg)
-        // - Veelgestelde vragen
-
+       
         $featuredPlayers = Player::take(4)->get(); // 4 sterren spelers
         $mainTeam = Team::first(1); // Real Madrid A-team
         $faq = FaqItem::take(5)->get(); // 5 vragen
