@@ -12,12 +12,9 @@ use App\Http\Controllers\AdminController;
 
 //Route::view('/home', 'welcome')->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-   // Route::view('dashboard', 'dashboard')->name('dashboard');
-});
+
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
-//Route::get('/', [HomeController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 Route::get('/teams', [TeamController::class, 'index']);
 Route::get('/teams/{id}', [TeamController::class, 'show']);
@@ -29,8 +26,8 @@ Route::get('/profile/{id}', [ProfileController::class, 'show']);
 Route::get('/profile', [ProfileController::class, 'edit'])->middleware('auth');
 Route::post('/profile', [ProfileController::class, 'update'])->middleware('auth');
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
-
-
+Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 

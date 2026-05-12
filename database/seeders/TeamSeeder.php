@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Team;
 
 class TeamSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        //
+        Team::create([
+            'name' => 'Real Madrid CF',
+            'logo' => '/images/realmadrid.png',
+            'description' => 'Het eerste team van Real Madrid, bekend als Los Blancos.',
+        ]);
     }
 }

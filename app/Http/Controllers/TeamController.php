@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Team;
 
 class TeamController extends Controller
 {
-        public function index()
-    {
-        // 
-    }
-        public function show($id)
+    public function index()
     {
         // later invullen
     }
 
+    public function show($id)
+    {
+        // later invullen
+    }
 }
