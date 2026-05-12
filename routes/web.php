@@ -9,14 +9,15 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ContactController;
 Use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
-Route::view('/home', 'welcome')->name('home');
+
+//Route::view('/home', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+   // Route::view('dashboard', 'dashboard')->name('dashboard');
 });
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
-Route::get('/', [HomeController::class, 'index']);
+//Route::get('/', [HomeController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 Route::get('/teams', [TeamController::class, 'index']);
 Route::get('/teams/{id}', [TeamController::class, 'show']);
@@ -28,6 +29,9 @@ Route::get('/profile/{id}', [ProfileController::class, 'show']);
 Route::get('/profile', [ProfileController::class, 'edit'])->middleware('auth');
 Route::post('/profile', [ProfileController::class, 'update'])->middleware('auth');
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
+
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
