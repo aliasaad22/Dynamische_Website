@@ -7,9 +7,7 @@
                 <img src="{{ $player->photo }}" class="w-full h-40 object-cover rounded mb-3">
                 <h2 class="text-xl font-bold">{{ $player->name }}</h2>
                 <p class="text-gray-600">#{{ $player->number }} — {{ $player->position }}</p>
-                <a href="/players/{{ $player->id }}" class="text-blue-700 font-semibold mt-3 inline-block">
-                    Bekijk speler →
-                </a>
+        
             </div>
         @endforeach
     </div>

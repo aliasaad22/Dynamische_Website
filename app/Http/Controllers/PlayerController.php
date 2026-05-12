@@ -8,7 +8,11 @@ class PlayerController extends Controller
 {
     public function index()
     {
-        // later invullen
+    $players = \App\Models\Player::all();
+
+    return view('players.index', [
+        'players' => $players
+    ]);
     }
 
     public function show($id)

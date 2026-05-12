@@ -27,10 +27,7 @@ Route::controller(NewsController::class)->prefix('news')->name('news.')->group(f
 Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
 
 // Players
-Route::controller(PlayerController::class)->prefix('players')->name('players.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{id}', 'show')->name('show');
-});
+Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
 
 // FAQ
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
