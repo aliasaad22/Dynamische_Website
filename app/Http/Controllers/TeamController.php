@@ -8,8 +8,13 @@ class TeamController extends Controller
 {
     public function index()
     {
-        // later invullen
+    $teams = \App\Models\Team::all();
+
+    return view('teams.index', [
+        'teams' => $teams
+    ]);
     }
+
 
     public function show($id)
     {

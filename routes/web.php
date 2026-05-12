@@ -7,36 +7,56 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ContactController;
-Use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
-//Route::view('/home', 'welcome')->name('home');
 
 
-Route::get('/news', [NewsController::class, 'index']);
-Route::get('/news/{id}', [NewsController::class, 'show']);
-Route::get('/news/{id}', [NewsController::class, 'show']);
-Route::get('/teams', [TeamController::class, 'index']);
-Route::get('/teams/{id}', [TeamController::class, 'show']);
-Route::get('/players', [PlayerController::class, 'index']);
-Route::get('/faq', [FaqController::class, 'index']);
-Route::get('/contact', [ContactController::class, 'index']);
-Route::post('/contact', [ContactController::class, 'send']);
-Route::get('/profile/{id}', [ProfileController::class, 'show']);
-Route::get('/profile', [ProfileController::class, 'edit'])->middleware('auth');
-Route::post('/profile', [ProfileController::class, 'update'])->middleware('auth');
-Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
-Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
-Route::get('/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
+
+// Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
-Route::get('/players/{id}', [PlayerController::class, 'show'])->name('players.show');
 
+// News
+Route::controller(NewsController::class)->prefix('news')->name('news.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{id}', 'show')->name('show');
+});
 
+// Teams
 
+Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
 
+// Players
+Route::controller(PlayerController::class)->prefix('players')->name('players.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{id}', 'show')->name('show');
+});
+
+// FAQ
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+
+// Contact
+Route::controller(ContactController::class)->prefix('contact')->name('contact.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'send')->name('send');
+});
+
+// Profile (authenticated user)
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+// Public profile
+Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+
+// Admin
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+
+    // Admin Player Management
     Route::resource('players', AdminPlayerController::class);
 });
 
-require __DIR__.'/settings.php';
+// Additional settings routes
+require __DIR__ . '/settings.php';
