@@ -11,9 +11,9 @@ class HomeController extends Controller
     public function index()
     {
        
-        $featuredPlayers = Player::take(4)->get(); // 4 sterren spelers
-        $mainTeam = Team::first(1); // Real Madrid A-team
-        $faq = FaqItem::take(5)->get(); // 5 vragen
+        $featuredPlayers = Player::take(3)->get(); 
+        $mainTeam = Team::first(1); 
+        $faq = FaqItem::take(2)->get();
 
         return view('home.index', [
             'featuredPlayers' => $featuredPlayers,
