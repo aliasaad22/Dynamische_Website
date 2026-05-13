@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\FaqItem;
-
+use App\Models\FaqCategory;
 class FaqController extends Controller
 {
     public function index()
     {
-        $faq = FaqItem::all();
+        $categories = FaqCategory::with('items')->get();
 
         return view('faq.index', [
-            'faq' => $faq
+            'categories' => $categories
         ]);
     }
 }
+

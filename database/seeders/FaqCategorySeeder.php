@@ -2,16 +2,15 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\FaqCategory;
 
 class FaqCategorySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        //
+        FaqCategory::create(['name' => 'Tickets']);
+        FaqCategory::create(['name' => 'Training']);
+        FaqCategory::create(['name' => 'Club']);
     }
 }

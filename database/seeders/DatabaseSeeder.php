@@ -22,5 +22,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(TeamSeeder::class);
         $this->call(PlayerSeeder::class);
+        $this->call([
+        FaqCategorySeeder::class,
+        FaqItemSeeder::class,
+]);
+
     }
 }

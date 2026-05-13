@@ -10,6 +10,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
+use App\Http\Controllers\Admin\FaqCategoryController;
+use App\Http\Controllers\Admin\FaqItemController;
 
 
 
@@ -54,6 +56,13 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     // Admin Player Management
     Route::resource('players', AdminPlayerController::class);
 });
+
+
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('faq/categories', FaqCategoryController::class);
+    Route::resource('faq/items', FaqItemController::class);
+});
+
 
 // Additional settings routes
 require __DIR__ . '/settings.php';
