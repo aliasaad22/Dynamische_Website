@@ -12,9 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('faq_items', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        $table->id();
+        $table->string('question');
+        $table->text('answer');
+        $table->foreignId('faq_category_id')->constrained()->onDelete('cascade');
+        $table->timestamps();
+    });
+
     }
 
     /**
