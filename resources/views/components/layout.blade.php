@@ -33,6 +33,10 @@
                     FAQ
                 </a>
             </li>
+            <li>
+                <a href="/contact" class="{{ request()->is('contact*') ? 'font-bold underline' : '' }}">
+                    Contact
+                </a>
 
             {{-- Admin menu alleen tonen als user admin is --}}
             @auth

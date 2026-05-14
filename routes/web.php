@@ -6,13 +6,12 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
 use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\FaqItemController;
-
+use App\Http\Controllers\ContactController;
 
 
 // Home
@@ -35,10 +34,11 @@ Route::get('/players', [PlayerController::class, 'index'])->name('players.index'
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 
 // Contact
-Route::controller(ContactController::class)->prefix('contact')->name('contact.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::post('/', 'send')->name('send');
-});
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+
+
 
 // Profile (authenticated user)
 Route::middleware('auth')->group(function () {
@@ -53,7 +53,7 @@ Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.s
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 
-    // Admin Player Management
+
     Route::resource('players', AdminPlayerController::class);
 });
 
@@ -64,5 +64,6 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 });
 
 
-// Additional settings routes
+
+
 require __DIR__ . '/settings.php';
