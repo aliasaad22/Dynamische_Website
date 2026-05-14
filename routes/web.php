@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
 use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\FaqItemController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\Auth\Register;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -65,5 +65,24 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
 
 
+// Registration routes
+Route::view('/register', 'auth.register')
+    ->middleware('guest')
+    ->name('register');
 
+Route::post('/register', Register::class)
+    ->middleware('guest');
+
+
+
+
+
+
+
+
+
+
+
+
+    
 require __DIR__ . '/settings.php';
