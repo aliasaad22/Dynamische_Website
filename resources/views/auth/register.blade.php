@@ -27,7 +27,27 @@
                                 <span class="label-text-alt text-error">{{ $message }}</span>
                             </div>
                         @enderror
-
+                    
+                        <label class="floating-label mb-6">
+                            <input type="text"
+                                   name="username"
+                                   placeholder="johndoe123"
+                                   value="{{ old('username') }}"
+                                   class="input input-bordered @error('username') input-error @enderror"
+                                   required>
+                            <span>Username</span>
+                        </label>
+                        <label class="floating-label mb-6">
+                            <input type="date"
+                                   name="date_of_birth"
+                                   placeholder="YYYY-MM-DD"
+                                   value="{{ old('date_of_birth') }}"
+                                   class="input input-bordered @error('date_of_birth') input-error @enderror"
+                                   required>
+            
+                            <span>Date of Birth</span>
+                        </label>
+                         
                         <!-- Email -->
                         <label class="floating-label mb-6">
                             <input type="email"
@@ -69,6 +89,7 @@
                             <span>Confirm Password</span>
                         </label>
 
+
                         <!-- Submit Button -->
                         <div class="form-control mt-8">
                             <button type="submit" class="btn btn-primary btn-sm w-full">
@@ -80,7 +101,7 @@
                     <div class="divider">OR</div>
                     <p class="text-center text-sm">
                         Already have an account?
-                        <a href="/login" class="link link-primary">Sign in</a>
+                        <a href="/login" class="link link-primary">Sign In</a>
                     </p>
                 </div>
             </div>

@@ -13,7 +13,8 @@ use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\FaqItemController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Auth\Register;
-
+use App\Http\Controllers\Auth\Login;
+use App\Http\Controllers\Auth\Logout;
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -75,6 +76,19 @@ Route::post('/register', Register::class)
 
 
 
+
+// Login routes
+Route::view('/login', 'auth.login')
+    ->middleware('guest')
+    ->name('login');
+
+Route::post('/login', Login::class)
+    ->middleware('guest');
+
+// Logout route
+Route::post('/logout', Logout::class)
+    ->middleware('auth')
+    ->name('logout');
 
 
 

@@ -17,6 +17,9 @@ class Register extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'birthday' => 'required|date',
+            
+
         ]);
 
         // Create the user
@@ -24,12 +27,14 @@ class Register extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'birthday' => $validated['birthday'],
+            
         ]);
 
         // Log them in
         Auth::login($user);
 
         // Redirect to home
-        return redirect('/')->with('success', 'Welcome to Chirper!');
+        return redirect('/')->with('success', 'Welcome to our website, ' . $user->name . '!');
     }
 }
