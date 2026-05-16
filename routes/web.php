@@ -16,7 +16,6 @@ use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Admin\AdminUserController;
-
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -106,6 +105,20 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
 });
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('faq-categories', \App\Http\Controllers\Admin\FaqCategoryController::class);
+    Route::resource('faq-items', \App\Http\Controllers\Admin\FaqItemController::class);
+});
 
-    
+ Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('dashboard');
+
+    Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
+    Route::resource('faq-categories', \App\Http\Controllers\Admin\FaqCategoryController::class);
+    Route::resource('faq-items', \App\Http\Controllers\Admin\FaqItemController::class);
+});
+   
 require __DIR__ . '/settings.php';

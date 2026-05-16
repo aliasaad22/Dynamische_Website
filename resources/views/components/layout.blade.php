@@ -29,9 +29,9 @@
             </li>
 
             <li>
-                <a href="/faq" class="{{ request()->is('faq*') ? 'font-bold underline' : '' }}">
-                    FAQ
-                </a>
+               
+                <a href="{{ route('faq.index') }}">FAQ</a>
+
             </li>
             <li>
                 <a href="/contact" class="{{ request()->is('contact*') ? 'font-bold underline' : '' }}">

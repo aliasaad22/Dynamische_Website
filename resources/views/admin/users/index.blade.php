@@ -1,20 +1,19 @@
-<h1>Gebruikersbeheer</h1>
- 
-<a href="{{ route('admin.users.create') }}">Nieuwe gebruiker toevoegen</a>
+<x-admin-layout>
+    <h1>Gebruikersbeheer</h1>
 
-@foreach($users as $user)
+    <a href="{{ route('admin.users.create') }}">Nieuwe gebruiker</a>
 
-    <div>
-        {{ $user->username }} - {{ $user->email }}
+    @foreach($users as $user)
+        <div>
+            {{ $user->name }}
+            <a href="{{ route('admin.users.show', $user) }}">Bekijk</a>
+            <a href="{{ route('admin.users.edit', $user) }}">Bewerk</a>
 
-        <a href="{{ route('admin.users.show', $user) }}">Bekijk</a>
-        <a href="{{ route('admin.users.edit', $user) }}">Bewerk</a>
-
-        <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit">Verwijder</button>
-        </form>
-    </div>
-    
-@endforeach
+            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('DELETE')
+                <button>Verwijder</button>
+            </form>
+        </div>
+    @endforeach
+</x-admin-layout>
