@@ -1,3 +1,5 @@
+
+<x-admin-layout>
 <h1>Gebruikersprofiel</h1>
 
 <p><strong>Naam:</strong> {{ $user->name }}</p>
@@ -39,4 +41,5 @@
     </button>
 </form>
 
-<a href="{{ route('admin.users.index') }}">Terug naar overzicht</a>
+<a class=" hover:underline btn btn-outline" href="{{ route('admin.users.index') }}">Terug naar overzicht</a>
+</x-admin-layout>

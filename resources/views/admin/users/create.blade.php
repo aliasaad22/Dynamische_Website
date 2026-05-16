@@ -1,3 +1,4 @@
+<x-admin-layout>
 <h1>Nieuwe gebruiker</h1>
 
 <form action="{{ route('admin.users.store') }}" method="POST">
@@ -16,3 +17,4 @@
 
     <button type="submit">Opslaan</button>
 </form>
+</x-admin-layout>

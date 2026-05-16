@@ -1,18 +1,18 @@
 <x-admin-layout>
-    <h1>Gebruikersbeheer</h1>
+    <h1 class="text-2xl font-bold mb-4">Gebruikersbeheer</h1>
 
-    <a href="{{ route('admin.users.create') }}">Nieuwe gebruiker</a>
+    <a class="hover:underline btn btn-outline" href="{{ route('admin.users.create') }}">Nieuwe gebruiker</a>
 
     @foreach($users as $user)
         <div>
             {{ $user->name }}
-            <a href="{{ route('admin.users.show', $user) }}">Bekijk</a>
-            <a href="{{ route('admin.users.edit', $user) }}">Bewerk</a>
+            <a class="hover:underline btn btn-outline" href="{{ route('admin.users.show', $user) }}">Bekijk</a>
+            <a class="hover:underline btn btn-outline" href="{{ route('admin.users.edit', $user) }}">Bewerk</a>
 
             <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
-                <button>Verwijder</button>
+                <button class="hover:underline btn btn-outline">Verwijder</button>
             </form>
         </div>
     @endforeach
