@@ -8,6 +8,7 @@
                 <h1 class="text-xl font-bold">{{ $team->name }}</h1>
                  <img src="{{ $team->logo }}" class="w-full h-40 object-contain mb-3">
                 <p class="text-gray-600">{{ $team->description }}</p>
+                
         
             </div>
         @endforeach

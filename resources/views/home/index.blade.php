@@ -1,7 +1,7 @@
 <x-layout>
 
     
-    <section class="mb-10 p-10 bg-gradient-to-r from-blue-900 to-blue-600 text-white rounded-xl">
+    <section class="">
         <h1 class="text-5xl font-bold mb-4">Real Madrid CF</h1>
         <p class="text-xl">Welkom op de officiële clubwebsite</p>
     </section>

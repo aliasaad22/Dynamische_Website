@@ -1,17 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="nl">
-    <header class="bg-blue-900 text-white p-4">
-    <nav class="max-w-6xl mx-auto flex items-center justify-between">
+     <script src="https://cdn.tailwindcss.com"></script>
+    <header class="">
+    <nav class="max-w-full mx-auto flex items-center justify-between bg-gray-900 text-white px-6 py-4  ">
         
         {{-- Logo --}}
-        <a href="/" class="text-2xl font-bold">
+        <a href="/" class="text-2xl font-bold ">
             Real Madrid CF
         </a>
 
         {{-- Menu links --}}
-        <ul class="flex gap-6 text-lg">
+        <ul class="flex gap-6 text-lg ">
             <li>
-                <a href="/" class="{{ request()->is('/') ? 'font-bold underline' : '' }}">
+                <a href="/" class="{{ request()->is('/') ? 'font-bold underline  ' : ' ' }}">
                     Home
                 </a>
             </li>
@@ -37,27 +39,28 @@
                 <a href="/contact" class="{{ request()->is('contact*') ? 'font-bold underline' : '' }}">
                     Contact
                 </a>
-            <div class="navbar-end gap-2">
-                @auth
-                    <span class="text-sm">{{ auth()->user()->name }}</span>
-                    <form method="POST" action="/logout" class="inline">
-                        @csrf
-                        <button type="submit" class="btn btn-ghost btn-sm">Logout</button>
-                    </form>
-                @else
-                    <a href="/login" class="btn btn-ghost btn-sm">Sign In</a>
-                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Sign Up</a>
-                @endauth
-            </div>
-            {{-- Admin menu alleen tonen als user admin is --}}
-            @auth
+            </li>
+              @auth
                 @if(auth()->user()->is_admin)
                     <li>
-                        <a href="/admin" class="{{ request()->is('admin*') ? 'font-bold underline' : '' }}">
+                        <a href="/admin" class="{{ request()->is('admin*') ? '' : '' }}">
                             Admin
                         </a>
                     </li>
                 @endif
+            <li class="navbar-end gap-2">
+                @auth
+                    <form method="POST" action="/logout" class="inline">
+                        @csrf
+                        <button type="submit" class="bg-blue-600 text-white px-4  rounded">Logout</button>
+                    </form>
+                @else
+                    <a href="/login" class="bg-gray-300 text-gray-800 px-4 py-2 rounded">Sign In</a>
+                    <a href="{{ route('register') }}" class="bg-blue-600 text-white px-4  rounded">Sign Up</a>
+                @endauth
+            </li>
+            {{-- Admin menu alleen tonen als user admin is --}}
+          
             @endauth
             
         </ul>
