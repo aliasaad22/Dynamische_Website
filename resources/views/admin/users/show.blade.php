@@ -29,9 +29,9 @@
     <p>Geen profielfoto</p>
 @endif
 
-<a href="{{ route('users.edit', $user) }}">Bewerk gebruiker</a>
+<a href="{{ route('admin.users.edit', $user) }}">Bewerk gebruiker</a>
 
-<form action="{{ route('users.destroy', $user) }}" method="POST">
+<form action="{{ route('admin.users.destroy', $user) }}" method="POST">
     @csrf
     @method('DELETE')
     <button type="submit" onclick="return confirm('Weet je het zeker?')">
@@ -39,4 +39,4 @@
     </button>
 </form>
 
-<a href="{{ route('users.index') }}">Terug naar overzicht</a>
+<a href="{{ route('admin.users.index') }}">Terug naar overzicht</a>

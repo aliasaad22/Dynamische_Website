@@ -59,6 +59,7 @@
                     </li>
                 @endif
             @endauth
+            
         </ul>
 
     </nav>

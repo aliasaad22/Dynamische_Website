@@ -16,5 +16,5 @@
             <button type="submit">Verwijder</button>
         </form>
     </div>
+    
 @endforeach
-

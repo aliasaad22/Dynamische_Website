@@ -35,8 +35,26 @@ public function store(Request $request)
 
     User::create($data);
 
-    return redirect()->route('admin.users.index')
-        ->with('success', 'Gebruiker succesvol aangemaakt');
-}
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Gebruiker succesvol aangemaakt');
+    }
+        public function show(User $user)
+    {
+        return view('admin.users.show', compact('user'));
+    }
+
+        public function edit(User $user)
+    {
+        return view('admin.users.edit', compact('user'));
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Gebruiker verwijderd');
+    }
+
 
 }

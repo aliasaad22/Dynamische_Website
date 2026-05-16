@@ -1,7 +1,7 @@
 <h1>Gebruiker bewerken</h1>
- @csrf
+
 <form action="{{ route('admin.users.update', $user) }}" method="POST" enctype="multipart/form-data">
-    
+    @csrf
     @method('PUT')
 
     <div>
