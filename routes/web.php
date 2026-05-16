@@ -15,6 +15,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
+use App\Http\Controllers\Admin\AdminUserController;
+
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -94,9 +96,16 @@ Route::post('/logout', Logout::class)
 
 
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::resource('users', AdminUserController::class);
+});
 
-
-
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::resource('users', AdminUserController::class);
+});
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
+});
 
     
 require __DIR__ . '/settings.php';
