@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\FaqCategory;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Redirect;
 class FaqCategoryController extends Controller
 {
     public function index()
@@ -51,12 +51,14 @@ class FaqCategoryController extends Controller
             ->with('success', 'Categorie bijgewerkt');
     }
 
-    public function destroy(FaqCategory $faqCategory)
+    
+        public function destroy(FaqCategory $faqCategory)
     {
-        $faqCategory->delete();
+        FaqCategory::destroy($faqCategory->id);
 
         return redirect()
             ->route('admin.faq-categories.index')
             ->with('success', 'Categorie verwijderd');
     }
 }
+

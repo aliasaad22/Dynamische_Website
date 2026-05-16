@@ -48,13 +48,14 @@ public function store(Request $request)
         return view('admin.users.edit', compact('user'));
     }
 
-    public function destroy(User $user)
+        public function destroy(User $user)
     {
-        $user->delete();
+        $user->delete($user->id);
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Gebruiker verwijderd');
     }
+
 
 
 }

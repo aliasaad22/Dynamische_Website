@@ -21,17 +21,19 @@ class FaqItemController extends Controller
         return view('admin.faq.items.create', compact('categories'));
     }
 
-    public function store(Request $request)
+        public function store(Request $request)
     {
-        $request->validate([
-            'faq_category_id' => 'required',
-            'question' => 'required',
-            'answer' => 'required',
+        $validated = $request->validate([
+            'faq_category_id' => ['required', 'exists:faq_categories,id'],
+            'question' => ['required', 'string'],
+            'answer' => ['required', 'string'],
         ]);
 
-        FaqItem::create($request->all());
+        FaqItem::create($validated);
 
-        return back()->with('success', 'Vraag toegevoegd');
+        return redirect()
+            ->route('admin.faq-items.index')
+            ->with('success', 'FAQ vraag toegevoegd');
     }
 
     public function edit(FaqItem $faq_item)
@@ -49,13 +51,18 @@ class FaqItemController extends Controller
         ]);
 
         $faq_item->update($request->all());
+        return redirect()->route('admin.faq-items.index')
+            ->with('success', 'FAQ vraag bijgewerkt');
+      
 
-        return back()->with('success', 'Vraag bijgewerkt');
+        
+
+
     }
 
     public function destroy(FaqItem $faq_item)
     {
-        $faq_item->delete();
+        $faq_item->delete($faq_item->id);
         return back()->with('success', 'Vraag verwijderd');
     }
 }
