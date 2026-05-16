@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->string('question');
         $table->text('answer');
-        $table->foreignId('faq_category_id')->constrained()->onDelete('cascadeOnDelete');
+        $table->foreignId('faq_category_id')->constrained()->onDelete('cascade');
         $table->timestamps();
     });
 
