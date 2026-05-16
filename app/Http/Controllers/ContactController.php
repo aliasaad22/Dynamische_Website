@@ -31,12 +31,8 @@ class ContactController extends Controller
             'message.min' => 'Your message must be at least 10 characters.',
         ];
 
-       $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|email',
-            'message' => 'required|min:10',
-        ]);
-
+       
+   
         return back()->with('success', 'Thank you for your message!');
     }
 }

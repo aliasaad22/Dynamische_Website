@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
         FaqCategorySeeder::class,
         FaqItemSeeder::class,
 ]);
+    $this->call([
+        UserSeeder::class,
+    ]);
+
 
     }
 }
