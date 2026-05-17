@@ -124,3 +124,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::delete('/faq-categories/{faqCategory}', [FaqCategoryController::class, 'destroy'])
     ->name('admin.faq-categories.destroy');
 require __DIR__ . '/settings.php';
+

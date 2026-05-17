@@ -1,7 +1,10 @@
 <x-layout>
-<h1>Veelgestelde vragen (FAQ)</h1>
+    
+<x-admin-layout>
 
+<h1>Veelgestelde vragen (FAQ)</h1>
 @foreach($categories as $category)
+    <h1>Veelgestelde vragen (FAQ)</h1>
     <h2>{{ $category->name }}</h2>
 
     @if($category->items->count() === 0)
@@ -19,4 +22,5 @@
 
     <hr>
 @endforeach
+</x-admin-layout>
 </x-layout>

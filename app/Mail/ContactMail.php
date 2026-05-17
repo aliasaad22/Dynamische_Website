@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -10,20 +12,16 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name;
-    public $email;
-    public $messageText;
+  public $validatedData;
 
-    public function __construct($name, $email, $messageText)
+    public function __construct($validatedData)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->messageText = $messageText;
+        $this->validatedData = $validatedData;
     }
 
     public function build()
     {
-        return $this->subject('Nieuw contactbericht')
+        return $this->subject('Nieuw contactformulier bericht')
                     ->view('emails.contact');
     }
 }
