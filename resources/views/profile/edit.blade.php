@@ -1,37 +1,64 @@
 <x-layout>
 
-<h1 class="text-2xl font-bold mb-4">Mijn profiel bewerken</h1>
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
 
-@if(session('success'))
-    <div class="bg-green-200 text-green-800 p-3 mb-4 rounded">
-        {{ session('success') }}
-    </div>
-@endif
+    <h1 class="text-2xl font-bold mb-4">Profiel bewerken</h1>
 
-<form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-    @csrf
+    @if(session('success'))
+        <div class="bg-green-100 text-green-700 p-2 mb-4 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
 
-    <div>
-        <label class="block font-semibold">Username</label>
-        <input type="text" name="username" value="{{ old('username', $user->username) }}" class="border p-2 w-full">
-    </div>
+    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-    <div>
-        <label class="block font-semibold">Verjaardag</label>
-        <input type="date" name="birthday" value="{{ old('birthday', $user->birthday) }}" class="border p-2 w-full">
-    </div>
-
-    <div>
-        <label class="block font-semibold">Profielfoto</label>
-        <input type="file" name="profile_photo" class="border p-2 w-full">
+        {{-- Username --}}
+          <div>
+        <label>Naam:</label>
+        <input type="text" name="name" value="{{ old('name', $user->name) }}">
     </div>
 
     <div>
-        <label class="block font-semibold">Over mij</label>
-        <textarea name="about" class="border p-2 w-full">{{ old('about', $user->about) }}</textarea>
+        <label>Username:</label>
+        <input type="text" name="username" value="{{ old('username', $user->username) }}">
     </div>
 
-    <button class="bg-blue-600 text-white px-4 py-2 rounded">Opslaan</button>
-</form>
+    <div>
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ old('email', $user->email) }}">
+    </div>
+
+    <div>
+        <label>Verjaardag:</label>
+        <input type="date" name="birthday" value="{{ old('birthday', $user->birthday) }}">
+    </div>
+
+    <div>
+        <label>Over mij:</label>
+        <textarea name="about">{{ old('about', $user->about) }}</textarea>
+    </div>
+
+    <div>
+        <label>Nieuwe profielfoto:</label>
+        <input type="file" name="profile_photo">
+    </div>
+
+    @if($user->profile_photo)
+      <div>
+            <p>Huidige profielfoto:</p>
+            <img src="{{ asset('storage/' . $user->profile_photo) }}" 
+                 width="120" 
+                 alt="Profielfoto">
+        </div>
+    @endif
+        <button class="bg-blue-500 text-white px-4 py-2 rounded">
+            Opslaan
+        </button>
+
+    </form>
+
+</div>
 
 </x-layout>

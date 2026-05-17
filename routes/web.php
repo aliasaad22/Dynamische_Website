@@ -16,6 +16,9 @@ use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Admin\AdminUserController;
+
+
+
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -132,10 +135,11 @@ Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile
 // Eigen profiel bewerken
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])
+    ->name('profile.update');
+    Route::get('/profile/{user}', [ProfileController::class, 'show'])
+    ->name('profile.show');
 });
-
-
 
 
 
