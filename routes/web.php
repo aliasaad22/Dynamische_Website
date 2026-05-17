@@ -123,5 +123,25 @@ Route::prefix('admin')->name('admin.')->group(function () {
    
 Route::delete('/faq-categories/{faqCategory}', [FaqCategoryController::class, 'destroy'])
     ->name('admin.faq-categories.destroy');
+
+
+
+// Publiek profiel
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
+// Eigen profiel bewerken
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+
+
+
+
+
+
+
+
 require __DIR__ . '/settings.php';
 
