@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\FaqCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 class FaqCategoryController extends Controller
 {
     public function index()

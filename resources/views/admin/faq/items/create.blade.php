@@ -1,28 +1,84 @@
-<h1>Nieuwe FAQ Vraag</h1>
+<x-admin-layout>
 
-<form action="{{ route('admin.faq-items.store') }}" method="POST">
-    @csrf
+<div class="max-w-3xl mx-auto">
 
-    <label>Categorie:</label>
-    <select name="faq_category_id">
-        @foreach($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
-        @endforeach
-    </select>
+    {{-- HEADER --}}
+    <div class="bg-white shadow rounded-2xl p-6 mb-6">
+        <h1 class="text-2xl font-bold">Nieuwe FAQ vraag</h1>
+        <p class="text-gray-500 text-sm">Voeg een nieuwe vraag toe aan de FAQ</p>
+    </div>
 
-    <br><br>
+    {{-- FORM --}}
+    <div class="bg-white shadow rounded-2xl p-6">
 
-    <label>Vraag:</label>
-    <input type="text" name="question">
+        <form action="{{ route('admin.faq-items.store') }}"
+              method="POST"
+              class="space-y-5">
 
-    <br><br>
+            @csrf
 
-    <label>Antwoord:</label>
-    <textarea name="answer"></textarea>
+            {{-- CATEGORY --}}
+            <div>
+                <label class="text-sm font-medium">Categorie</label>
 
-    <br><br>
+                <select name="faq_category_id"
+                        class="w-full border rounded-lg p-3 mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
 
-    <button type="submit">Opslaan</button>
-</form>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
 
-<a href="{{ route('admin.faq-items.index') }}">Annuleren</a>
+                </select>
+            </div>
+
+            {{-- QUESTION --}}
+            <div>
+                <label class="text-sm font-medium">Vraag</label>
+                <input type="text"
+                       name="question"
+                       value="{{ old('question') }}"
+                       placeholder="Typ hier de vraag..."
+                       class="w-full border rounded-lg p-3 mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+
+                @error('question')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            {{-- ANSWER --}}
+            <div>
+                <label class="text-sm font-medium">Antwoord</label>
+                <textarea name="answer"
+                          rows="5"
+                          placeholder="Typ hier het antwoord..."
+                          class="w-full border rounded-lg p-3 mt-1 focus:ring-2 focus:ring-blue-500 outline-none">{{ old('answer') }}</textarea>
+
+                @error('answer')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            {{-- BUTTONS --}}
+            <div class="flex justify-between pt-4">
+
+                <a href="{{ route('admin.faq-items.index') }}"
+                   class="px-5 py-2 border rounded-lg text-gray-600 hover:bg-gray-100">
+                    Annuleren
+                </a>
+
+                <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
+                    Opslaan
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</x-admin-layout>

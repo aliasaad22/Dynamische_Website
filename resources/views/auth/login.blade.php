@@ -1,72 +1,79 @@
 <x-layout>
-    <x-admin-layout>
-    <div class="hero min-h-[calc(100vh-16rem)]">
-        <div class="hero-content flex-col">
-            <div class="card w-96 bg-base-100">
-                <div class="card-body">
-                    <h1 class="text-3xl font-bold text-center mb-6">Welcome Back</h1>
 
-                    <form method="POST" action="/login">
-                        @csrf
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-10">
 
-                        <!-- Email -->
-                        <label class="floating-label mb-6">
-                            <input type="email"
-                                   name="email"
-                                   placeholder="[mail@example.com](<mailto:mail@example.com>)"
-                                   value="{{ old('email') }}"
-                                   class="input input-bordered @error('email') input-error @enderror"
-                                   required
-                                   autofocus>
-                            <span>Email</span>
-                        </label>
-                        @error('email')
-                            <div class="label -mt-4 mb-2">
-                                <span class="label-text-alt text-error">{{ $message }}</span>
-                            </div>
-                        @enderror
+    <div class="w-full max-w-md">
 
-                        <!-- Password -->
-                        <label class="floating-label mb-6">
-                            <input type="password"
-                                   name="password"
-                                   placeholder="••••••••"
-                                   class="input input-bordered @error('password') input-error @enderror"
-                                   required>
-                            <span>Password</span>
-                        </label>
-                        @error('password')
-                            <div class="label -mt-4 mb-2">
-                                <span class="label-text-alt text-error">{{ $message }}</span>
-                            </div>
-                        @enderror
+        {{-- CARD --}}
+        <div class="bg-white shadow-xl rounded-2xl p-8">
 
-                        <!-- Remember Me -->
-                        <div class="form-control mt-4">
-                            <label class="label cursor-pointer justify-start">
-                                <input type="checkbox"
-                                       name="remember"
-                                       class="checkbox">
-                                <span class="label-text ml-2">Remember me</span>
-                            </label>
-                        </div>
+            {{-- TITLE --}}
+            <h1 class="text-3xl font-bold text-center mb-2">
+                Welcome Back
+            </h1>
 
-                        <!-- Submit Button -->
-                        <div class="form-control mt-8">
-                            <button type="submit" class="btn btn-primary btn-sm w-full">
-                                Sign In
-                            </button>
-                        </div>
-                    </form>
+            <p class="text-center text-gray-500 mb-6">
+                Log in op je account
+            </p>
 
-                    <div class="divider">OR</div>
-                    <p class="text-center text-sm">
-                        Don't have an account?
-                        <a href="/register" class="link link-primary">Register</a>
-                    </p>
+            {{-- FORM --}}
+            <form method="POST" action="/login" class="space-y-4">
+                @csrf
+
+                {{-- EMAIL --}}
+                <div>
+                    <label class="text-sm font-medium">Email</label>
+                    <input type="email"
+                           name="email"
+                           value="{{ old('email') }}"
+                           placeholder="mail@example.com"
+                           autofocus
+                           class="w-full border rounded-lg p-3 mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
+                {{-- PASSWORD --}}
+                <div>
+                    <label class="text-sm font-medium">Wachtwoord</label>
+                    <input type="password"
+                           name="password"
+                           placeholder="••••••••"
+                           class="w-full border rounded-lg p-3 mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- REMEMBER --}}
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" name="remember" class="h-4 w-4">
+                    <label class="text-sm text-gray-600">Remember me</label>
+                </div>
+
+                {{-- BUTTON --}}
+                <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
+                    Sign In
+                </button>
+
+            </form>
+
+            {{-- FOOTER --}}
+            <div class="text-center mt-6 text-sm text-gray-600">
+                Don't have an account?
+                <a href="/register" class="text-blue-600 font-semibold">
+                    Register
+                </a>
             </div>
+
         </div>
+
     </div>
-    </x-admin-layout>
+
+</div>
+
 </x-layout>
