@@ -1,8 +1,5 @@
 <x-layout>
-    <x-slot:title>
-        Sign In
-    </x-slot:title>
-
+    <x-admin-layout>
     <div class="hero min-h-[calc(100vh-16rem)]">
         <div class="hero-content flex-col">
             <div class="card w-96 bg-base-100">
@@ -71,4 +68,5 @@
             </div>
         </div>
     </div>
+    </x-admin-layout>
 </x-layout>

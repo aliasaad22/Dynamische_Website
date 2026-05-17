@@ -1,8 +1,7 @@
 <x-layout>
-    <x-slot:title>
+    <x-admin-layout>
         Register
-    </x-slot:title>
-
+   
     <div class="hero min-h-[calc(100vh-16rem)]">
         <div class="hero-content flex-col">
             <div class="card w-96 bg-base-100">
@@ -37,22 +36,13 @@
                                    required>
                             <span>Username</span>
                         </label>
-                        <label class="floating-label mb-6">
-                            <input type="date"
-                                   name="date_of_birth"
-                                   placeholder="YYYY-MM-DD"
-                                   value="{{ old('date_of_birth') }}"
-                                   class="input input-bordered @error('date_of_birth') input-error @enderror"
-                                   required>
-            
-                            <span>Date of Birth</span>
-                        </label>
+                        
                          
                         <!-- Email -->
                         <label class="floating-label mb-6">
                             <input type="email"
                                    name="email"
-                                   placeholder="[mail@example.com](<mailto:mail@example.com>)"
+                                   placeholder="mail@example.com"
                                    value="{{ old('email') }}"
                                    class="input input-bordered @error('email') input-error @enderror"
                                    required>
@@ -107,4 +97,5 @@
             </div>
         </div>
     </div>
+    </x-admin-layout>
 </x-layout>

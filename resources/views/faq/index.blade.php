@@ -1,6 +1,6 @@
 <x-layout>
     
-<x-admin-layout>
+
 
 <h1>Veelgestelde vragen (FAQ)</h1>
 @foreach($categories as $category)
@@ -22,5 +22,5 @@
 
     <hr>
 @endforeach
-</x-admin-layout>
+
 </x-layout>

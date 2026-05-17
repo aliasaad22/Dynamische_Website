@@ -17,7 +17,7 @@ class Register extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'birthday' => 'required|date',
+            
             
 
         ]);
@@ -27,7 +27,7 @@ class Register extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'birthday' => $validated['birthday'],
+            
             
         ]);
 
