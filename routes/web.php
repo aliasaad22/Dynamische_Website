@@ -134,6 +134,6 @@ Route::middleware(['auth', 'admin'])
     });
 
 
-
+    
 
 require __DIR__ . '/settings.php';

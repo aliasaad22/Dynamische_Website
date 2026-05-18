@@ -55,7 +55,24 @@ public function store(Request $request)
         return redirect()->route('admin.users.index')
             ->with('success', 'Gebruiker verwijderd');
     }
+ 
 
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'is_admin' => 'nullable|boolean',
+        ]);
 
+        $user->update([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'is_admin' => $request->has('is_admin'),
+        ]);
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Gebruiker bijgewerkt');
+    }
 
 }
