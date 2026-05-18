@@ -41,4 +41,5 @@ class PlayerSeeder extends Seeder
             'team_id' => 1,
         ]);
     }
+    
 }

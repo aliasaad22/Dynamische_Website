@@ -11,4 +11,9 @@ class Team extends Model
         'logo',
         'description',
     ];
+
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
 }

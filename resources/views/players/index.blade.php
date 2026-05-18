@@ -33,8 +33,9 @@
                     </h2>
 
                     <p class="text-gray-600 text-sm mt-1">
-                        #{{ $player->number }} • {{ $player->position }}
+                        #{{ $player->number }} • {{ $player->position }} • {{ $player->Team->name ?? 'Geen Team' }}
                     </p>
+                
 
                 </div>
 
