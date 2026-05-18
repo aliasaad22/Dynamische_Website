@@ -1,151 +1,139 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+// Public Controllers
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContactController;
+
+// Auth Controllers
+use App\Http\Controllers\Auth\Register;
+use App\Http\Controllers\Auth\Login;
+use App\Http\Controllers\Auth\Logout;
+
+// Admin Controllers
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
 use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\FaqItemController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Auth\Register;
-use App\Http\Controllers\Auth\Login;
-use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Admin\AdminUserController;
 
 
+/*
+|--------------------------------------------------------------------------
+| PUBLIC ROUTES
+|--------------------------------------------------------------------------
+*/
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // News
-Route::controller(NewsController::class)->prefix('news')->name('news.')->group(function () {
+Route::prefix('news')->name('news.')->controller(NewsController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/{id}', 'show')->name('show');
 });
 
 // Teams
-
-Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+Route::prefix('teams')->name('teams.')->controller(TeamController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+});
 
 // Players
-Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
+Route::prefix('players')->name('players.')->controller(PlayerController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+});
 
 // FAQ
-Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+Route::prefix('faq')->name('faq.')->controller(FaqController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+});
 
 // Contact
-Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
-Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::prefix('contact')->name('contact.')->controller(ContactController::class)->group(function () {
+    Route::get('/', 'create')->name('create');
+    Route::post('/', 'submit')->name('submit');
+});
+
+// Public Profiles
+Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
+    Route::get('/{user}', 'show')->name('show');
+});
 
 
+/*
+|--------------------------------------------------------------------------
+| AUTH ROUTES (Guest only)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('guest')->group(function () {
+
+    // Register
+    Route::view('/register', 'auth.register')->name('register');
+    Route::post('/register', Register::class);
+
+    // Login
+    Route::view('/login', 'auth.login')->name('login');
+    Route::post('/login', Login::class);
+
+});
 
 
-// Profile (authenticated user)
+/*
+|--------------------------------------------------------------------------
+| AUTHENTICATED USER ROUTES
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-});
 
-// Public profile
-Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    // Logout
+    Route::post('/logout', Logout::class)->name('logout');
 
-// Admin
-Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    // Own profile
+    Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
+        Route::get('/', 'edit')->name('edit');
+        Route::put('/', 'update')->name('update');
+    });
 
-
-    Route::resource('players', AdminPlayerController::class);
 });
 
 
-Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('faq/categories', FaqCategoryController::class);
-    Route::resource('faq/items', FaqItemController::class);
-});
+/*
+|--------------------------------------------------------------------------
+| ADMIN ROUTES
+|--------------------------------------------------------------------------
+*/
 
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
+        // Dashboard
+        Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 
-// Registration routes
-Route::view('/register', 'auth.register')
-    ->middleware('guest')
-    ->name('register');
+        // Players Management
+        Route::resource('players', AdminPlayerController::class);
 
-Route::post('/register', Register::class)
-    ->middleware('guest');
+        // Users Management
+        Route::resource('users', AdminUserController::class);
 
+        // FAQ Categories Management
+        Route::resource('faq-categories', FaqCategoryController::class);
 
+        // FAQ Items Management
+        Route::resource('faq-items', FaqItemController::class);
 
-
-// Login routes
-Route::view('/login', 'auth.login')
-    ->middleware('guest')
-    ->name('login');
-
-Route::post('/login', Login::class)
-    ->middleware('guest');
-
-// Logout route
-Route::post('/logout', Logout::class)
-    ->middleware('auth')
-    ->name('logout');
-
-
-
-
-
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::resource('users', AdminUserController::class);
-});
-
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::resource('users', AdminUserController::class);
-});
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
-});
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('faq-categories', \App\Http\Controllers\Admin\FaqCategoryController::class);
-    Route::resource('faq-items', \App\Http\Controllers\Admin\FaqItemController::class);
-});
-
- Route::prefix('admin')->name('admin.')->group(function () {
-
-    Route::get('/', function () {
-        return view('admin.index');
-    })->name('dashboard');
-
-    Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
-    Route::resource('faq-categories', \App\Http\Controllers\Admin\FaqCategoryController::class);
-    Route::resource('faq-items', \App\Http\Controllers\Admin\FaqItemController::class);
-});
-   
-Route::delete('/faq-categories/{faqCategory}', [FaqCategoryController::class, 'destroy'])
-    ->name('admin.faq-categories.destroy');
-
-
-
-// Publiek profiel
-Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
-
-// Eigen profiel bewerken
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])
-    ->name('profile.update');
-    Route::get('/profile/{user}', [ProfileController::class, 'show'])
-    ->name('profile.show');
-});
-
-
-
+    });
 
 
 
 
 require __DIR__ . '/settings.php';
-
