@@ -10,76 +10,64 @@
             {{-- HEADER --}}
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-gray-800">
-                    Welcome Back
+                    Reset Password
                 </h1>
 
                 <p class="text-gray-500 mt-2">
-                    Log in op je account
+                    Kies een nieuw veilig wachtwoord
                 </p>
             </div>
 
+            {{-- ERROR --}}
+            @if(session('error'))
+                <div class="mb-4 p-3 rounded-xl bg-red-50 text-red-600 text-sm border border-red-100">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             {{-- FORM --}}
-            <form method="POST" action="/login" class="space-y-5">
+            <form method="POST" action="{{ route('reset.password.post') }}" class="space-y-5">
                 @csrf
+
+                <input type="hidden" name="token" value="{{ $token }}">
 
                 {{-- EMAIL --}}
                 <div>
                     <label class="text-sm font-medium text-gray-700">Email</label>
                     <input type="email"
                            name="email"
-                           value="{{ old('email') }}"
-                           placeholder="mail@example.com"
-                           autofocus
+                           placeholder="jouw@email.com"
+                           required
                            class="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition">
-
-                    @error('email')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
                 </div>
 
                 {{-- PASSWORD --}}
                 <div>
-                    <label class="text-sm font-medium text-gray-700">Wachtwoord</label>
+                    <label class="text-sm font-medium text-gray-700">Nieuw wachtwoord</label>
                     <input type="password"
                            name="password"
                            placeholder="••••••••"
+                           required
                            class="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition">
-
-                    @error('password')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
                 </div>
 
-                {{-- REMEMBER + FORGOT --}}
-                <div class="flex items-center justify-between text-sm">
-
-                    <label class="flex items-center gap-2 text-gray-600">
-                        <input type="checkbox" name="remember" class="h-4 w-4 rounded">
-                        Remember me
-                    </label>
-
-                    <a href="{{ route('password.request') }}"
-                       class="text-blue-600 font-medium hover:underline">
-                        Forgot password?
-                    </a>
-
+                {{-- CONFIRM PASSWORD --}}
+                <div>
+                    <label class="text-sm font-medium text-gray-700">Bevestig wachtwoord</label>
+                    <input type="password"
+                           name="password_confirmation"
+                           placeholder="••••••••"
+                           required
+                           class="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition">
                 </div>
 
                 {{-- BUTTON --}}
                 <button type="submit"
                         class="w-full py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md transition transform hover:scale-[1.02]">
-                    Sign In
+                    Reset Password
                 </button>
 
             </form>
-
-            {{-- FOOTER --}}
-            <div class="text-center mt-6 text-sm text-gray-600">
-                Don't have an account?
-                <a href="/register" class="text-blue-600 font-semibold hover:underline">
-                    Register
-                </a>
-            </div>
 
         </div>
 

@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\FaqItemController;
 use App\Http\Controllers\Admin\AdminUserController;
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,11 +34,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// News
-Route::prefix('news')->name('news.')->controller(NewsController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{id}', 'show')->name('show');
-});
+
 
 // Teams
 Route::prefix('teams')->name('teams.')->controller(TeamController::class)->group(function () {
@@ -118,10 +115,6 @@ Route::middleware(['auth', 'admin'])
 
         // Dashboard
         Route::get('/', [AdminController::class, 'index'])->name('dashboard');
-
-        // Players Management
-        Route::resource('players', AdminPlayerController::class);
-
         // Users Management
         Route::resource('users', AdminUserController::class);
 
@@ -133,7 +126,17 @@ Route::middleware(['auth', 'admin'])
 
     });
 
-
     
 
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])
+        ->name('password.request');
+
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])
+        ->name('forget.password.post');
+
+    Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])
+        ->name('reset.password.get');
+
+    Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])
+        ->name('reset.password.post');
 require __DIR__ . '/settings.php';
